@@ -24,7 +24,6 @@ namespace loginalejandrar
                 BindGridView();
             }
         }
-
         private void BindGridView()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -43,7 +42,7 @@ namespace loginalejandrar
                 }
             }
         }
-
+        ///Metodo para la creación de pais nuevo
         protected void btnCrearPais_Click(object sender, EventArgs e)
         {
             string nuevoPais = txtNuevoPais.Text;
@@ -61,19 +60,19 @@ namespace loginalejandrar
                 BindGridView();
             }
         }
-
+        ///Metodo para la edición de pais
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             GridView1.EditIndex = e.NewEditIndex;
             BindGridView();
         }
-
+        ///Botón para cancelar edición
         protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la edición de pais 
         protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
             int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values["id_pais"]);
@@ -93,7 +92,7 @@ namespace loginalejandrar
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la eliminación de pais
         protected void GridView1_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             try
@@ -126,6 +125,7 @@ namespace loginalejandrar
                 }
             }
         }
+        ///Botón para volver a home
         protected void btnHome_Click(object sender, EventArgs e)
         {
             Response.Redirect("Home.aspx"); // Reemplaza "Home.aspx" con la ruta correcta de tu página principal

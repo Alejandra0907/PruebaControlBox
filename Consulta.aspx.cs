@@ -30,72 +30,107 @@ namespace loginalejandrar
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Tu código para manejar el evento SelectedIndexChanged
+            int giroId = Convert.ToInt32(GridView1.SelectedDataKey.Value);
         }
 
         private void BindPaises()
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Paises", con))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    con.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM Paises", con))
                     {
-                        ddlPaises.DataSource = dr;
-                        ddlPaises.DataTextField = "nombre_pais";
-                        ddlPaises.DataValueField = "id_pais";
-                        ddlPaises.DataBind();
+                        con.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            ddlPaises.DataSource = dr;
+                            ddlPaises.DataTextField = "nombre_pais";
+                            ddlPaises.DataValueField = "id_pais";
+                            ddlPaises.DataBind();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                lblResultados.Text = "Error al cargar los países: " + ex.Message;
             }
         }
 
         private void BindCiudades()
         {
-            int idPais = Convert.ToInt32(ddlPaises.SelectedValue);
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Ciudades WHERE id_pais = @id_pais", con))
-                {
-                    cmd.Parameters.AddWithValue("@id_pais", idPais);
+                int idPais = Convert.ToInt32(ddlPaises.SelectedValue);
 
-                    con.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM Ciudades WHERE id_pais = @id_pais", con))
                     {
-                        ddlCiudades.DataSource = dr;
-                        ddlCiudades.DataTextField = "nombre_ciudad";
-                        ddlCiudades.DataValueField = "id_ciudad";
-                        ddlCiudades.DataBind();
+                        cmd.Parameters.AddWithValue("@id_pais", idPais);
+
+                        con.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            ddlCiudades.DataSource = dr;
+                            ddlCiudades.DataTextField = "nombre_ciudad";
+                            ddlCiudades.DataValueField = "id_ciudad";
+                            ddlCiudades.DataBind();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                lblResultados.Text = "Error al cargar las ciudades: " + ex.Message;
             }
         }
 
         private void BindGridView()
         {
-            int idCiudad = Convert.ToInt32(ddlCiudades.SelectedValue);
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT g.gir_giro_id, g.gir_recibo, c.nombre_ciudad FROM giros g INNER JOIN ciudades c ON g.gir_ciudad_id = c.id_ciudad WHERE c.id_ciudad = @id_ciudad", con))
-                {
-                    cmd.Parameters.AddWithValue("@id_ciudad", idCiudad);
+                int idCiudad = Convert.ToInt32(ddlCiudades.SelectedValue);
 
-                    con.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT g.gir_giro_id, g.gir_recibo, c.nombre_ciudad FROM giros g INNER JOIN ciudades c ON g.gir_ciudad_id = c.id_ciudad WHERE c.id_ciudad = @id_ciudad", con))
                     {
-                        DataTable dt = new DataTable();
-                        dt.Load(dr);
-                        GridView1.DataSource = dt;
-                        GridView1.DataBind();
+                        cmd.Parameters.AddWithValue("@id_ciudad", idCiudad);
+
+                        con.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(dr);
+                            GridView1.DataSource = dt;
+                            GridView1.DataBind();
+                        }
+                        else
+                        {
+                            GridView1.DataSource = null;
+                            GridView1.DataBind();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                lblResultados.Text = "Error al cargar la tabla: " + ex.Message;
+            }
         }
+        protected void btnHome_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Home.aspx");
+        }
+
     }
 }
+
+
+
+

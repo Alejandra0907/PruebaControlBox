@@ -20,7 +20,7 @@ namespace loginalejandrar
                 BindDropDownList();
             }
         }
-
+ 
         private void BindGridView()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -39,7 +39,7 @@ namespace loginalejandrar
                 }
             }
         }
-
+        ///DropDownList de Paises
         private void BindDropDownList()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -58,7 +58,7 @@ namespace loginalejandrar
                 }
             }
         }
-
+        ///Metodo para la creación de ciudad nueva
         protected void btnCrearCiudad_Click(object sender, EventArgs e)
         {
             string nuevaCiudad = txtNuevaCiudad.Text;
@@ -83,19 +83,19 @@ namespace loginalejandrar
                 BindGridView();
             }
         }
-
+        ///Metodo para la edición de ciudad 
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             GridView1.EditIndex = e.NewEditIndex;
             BindGridView();
         }
-
+        ///Botón para cancelar edición
         protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la edición de ciudad
         protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
             int idCiudad = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
@@ -121,7 +121,7 @@ namespace loginalejandrar
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la eliminación de ciudad
         protected void GridView1_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             try
@@ -143,19 +143,17 @@ namespace loginalejandrar
             }
             catch (SqlException ex)
             {
-                if (ex.Number == 547) // Este número es el código de error específico de la violación de clave foránea.
+                if (ex.Number == 547) 
                 {
-                    // Ciudad relacionada con giros, mostrar alerta.
                     ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('No se puede eliminar la ciudad porque está relacionado con un giro.');", true);
                 }
                 else
                 {
-                    // Otro tipo de error SQL, lo lanzamos nuevamente.
                     throw;
                 }
             }
         }
-
+        ///Metodo para ver data
         protected DataTable GetPaises()
         {
             DataTable dt = new DataTable();
@@ -175,6 +173,7 @@ namespace loginalejandrar
 
             return dt;
         }
+        ///Botón para volver a home
         protected void btnHome_Click(object sender, EventArgs e)
         {
             Response.Redirect("Home.aspx");

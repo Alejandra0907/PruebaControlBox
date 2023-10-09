@@ -72,6 +72,27 @@
         .btn.eliminar-btn {
             background-color: #dc3545;
         }
+        .grid-view table {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        }
+
+        .grid-view th, .grid-view td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .grid-view th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .grid-view tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -91,7 +112,6 @@
                     <asp:BoundField DataField="gir_giro_id" HeaderText="ID" ReadOnly="True" />
                     <asp:BoundField DataField="gir_recibo" HeaderText="Recibo" />
                     <asp:BoundField DataField="nombre_ciudad" HeaderText="Ciudad" />
-                    <asp:CommandField ShowSelectButton="True" ButtonType="Button" />
                 </Columns>
             </asp:GridView>
 

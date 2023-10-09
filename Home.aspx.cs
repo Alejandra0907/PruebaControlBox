@@ -13,22 +13,25 @@ namespace loginalejandrar
         {
 
         }
-
+        ///Botón para ingresar a la tabla y crud de Paises
         protected void BtnPaises_Click(object sender, EventArgs e)
         {
             Session.Remove("usuariologueado");
             Response.Redirect("Paises.aspx");
         }
+        ///Botón para ingresar a la tabla y crud de Ciudades
         protected void BtnCiudades_Click(object sender, EventArgs e)
         {
             Session.Remove("usuariologueado");
             Response.Redirect("Ciudades.aspx");
         }
+        ///Botón para ingresar a la tabla y crud de Giros
         protected void BtnGiros_Click(object sender, EventArgs e)
         {
             Session.Remove("usuariologueado");
             Response.Redirect("Giros.aspx");
         }
+        ///Botón para ingresar a la tablade Consulta
         protected void BtnConsulta_Click(object sender, EventArgs e)
         {
             Session.Remove("usuariologueado");

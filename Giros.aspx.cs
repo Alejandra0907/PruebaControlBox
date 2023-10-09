@@ -24,19 +24,19 @@ namespace loginalejandrar
                 BindDropDownList();
             }
         }
-
+        ///Metodo para la edición de giro
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
         {
             GridView1.EditIndex = e.NewEditIndex;
             BindGridView();
         }
-
+        ///Botón para cancelar edición
         protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la actualización de giro
         protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
             int idGiro = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
@@ -59,7 +59,7 @@ namespace loginalejandrar
             GridView1.EditIndex = -1;
             BindGridView();
         }
-
+        ///Metodo para la eliminación de giro
         protected void GridView1_RowDeleting(object sender, System.Web.UI.WebControls.GridViewDeleteEventArgs e)
         {
             int idGiro = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
@@ -77,7 +77,7 @@ namespace loginalejandrar
 
             BindGridView();
         }
-
+        ///Metodo para la creación de giro nuevo
         protected void btnCrearGiro_Click(object sender, EventArgs e)
         {
             string nuevoGiro = txtNuevoGiro.Text;
@@ -102,7 +102,7 @@ namespace loginalejandrar
                 BindGridView();
             }
         }
-
+        ///Metodo data 
         protected DataTable GetCiudades()
         {
             DataTable dt = new DataTable();
@@ -122,7 +122,7 @@ namespace loginalejandrar
 
             return dt;
         }
-
+        ///Metodo para visualizar data 
         protected void BindGridView()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -141,7 +141,7 @@ namespace loginalejandrar
                 }
             }
         }
-
+        ///Botón para DropDownList lista de ciudades
         protected void BindDropDownList()
         {
             ddlNuevaCiudad.DataSource = GetCiudades();
@@ -149,6 +149,7 @@ namespace loginalejandrar
             ddlNuevaCiudad.DataValueField = "id_ciudad";
             ddlNuevaCiudad.DataBind();
         }
+        ///Botón para regresar a home
         protected void btnHome_Click(object sender, EventArgs e)
         {
             Response.Redirect("Home.aspx");
